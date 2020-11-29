@@ -2,27 +2,22 @@
 using UOP1.StateMachine;
 using UOP1.StateMachine.ScriptableObjects;
 
-[CreateAssetMenu(fileName = "HasReceivedEvent", menuName = "State Machines/Conditions/Has Received Event")]
-public class HasReceivedEvent : StateConditionSO<HasHitHeadCondition> {
-
-	[SerializeField] VoidEventChannelSO _voidEvent;
-	protected override Condition CreateCondition() => new HasReceivedEventCondition(_voidEvent);
+[CreateAssetMenu(menuName = "State Machines/Conditions/Has Received Event")]
+public class HasReceivedEventSO : StateConditionSO<HasReceivedEventCondition>
+{
+	public VoidEventChannelSO voidEvent;
 }
 
 public class HasReceivedEventCondition : Condition
 {
-	private VoidEventChannelSO _voidEvent;
+	private HasReceivedEventSO _originSO => (HasReceivedEventSO)base.OriginSO; // The SO this Condition spawned from
+
 	private bool _eventTriggered;
 
 	public override void Awake(StateMachine stateMachine)
 	{
 		_eventTriggered = false;
-		_voidEvent.OnEventRaised += EventReceived;
-	}
-
-	public HasReceivedEventCondition(VoidEventChannelSO voidEvent)
-	{
-		_voidEvent = voidEvent;
+		_originSO.voidEvent.OnEventRaised += EventReceived;
 	}
 
 	protected override bool Statement()
@@ -33,5 +28,10 @@ public class HasReceivedEventCondition : Condition
 	private void EventReceived()
 	{
 		_eventTriggered = true;
+	}
+
+	public override void OnStateExit()
+	{
+		_eventTriggered = false;
 	}
 }

@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fafac715ff920c4383fed91a38a351e, type: 3}
+  m_Script: {fileID: 11500000, guid: 56e577f077b6a2d45834b28371a3578a, type: 3}
   m_Name: Event_EnterAlertZone
-  m_EditorClassIdentifier: Assembly-CSharp::HasReceivedEvent
+  m_EditorClassIdentifier: 
+  cacheResult: 1
+  voidEvent: {fileID: 11400000, guid: b729e6caa77687b44962453681d1652b, type: 2}

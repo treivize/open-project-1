@@ -46,7 +46,14 @@ namespace UOP1.StateMachine.Editor
 				LabelField(rect, "To");
 
 				rect.x += 20;
-				LabelField(rect, SerializedTransition.ToState.objectReferenceValue.name, EditorStyles.boldLabel);
+				if (SerializedTransition.ToState.objectReferenceValue != null)
+				{
+					LabelField(rect, SerializedTransition.ToState.objectReferenceValue.name, EditorStyles.boldLabel);
+				}
+				else
+				{
+						LabelField(rect, "Unknown", EditorStyles.boldLabel);
+				}
 			}
 
 
