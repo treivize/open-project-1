@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyColliderZoneController : MonoBehaviour
+public class ZoneTriggerController : MonoBehaviour
 {
 	[SerializeField] private VoidEventChannelSO _enterZone = default;
-
 	[SerializeField] private VoidEventChannelSO _exitZone = default;
+	[SerializeField] private LayerMask _layers = default;
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.GetComponent<Protagonist>() != null)
+		if ((1 << other.gameObject.layer & _layers) != 0)
 		{
 			_enterZone.RaiseEvent();
 		}
@@ -18,7 +18,7 @@ public class EnemyColliderZoneController : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.GetComponent<Protagonist>() != null)
+		if ((1 << other.gameObject.layer & _layers) != 0)
 		{
 			_exitZone.RaiseEvent();
 		}
