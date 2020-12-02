@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Event_EnterAlertZone
   m_EditorClassIdentifier: 
   cacheResult: 1
-  voidEvent: {fileID: 11400000, guid: b729e6caa77687b44962453681d1652b, type: 2}
+  trigger: 0

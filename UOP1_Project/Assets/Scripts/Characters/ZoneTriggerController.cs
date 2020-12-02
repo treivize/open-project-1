@@ -1,18 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class StringEvent : UnityEvent<string>
+{
+
+}
 
 public class ZoneTriggerController : MonoBehaviour
 {
-	[SerializeField] private VoidEventChannelSO _enterZone = default;
-	[SerializeField] private VoidEventChannelSO _exitZone = default;
+	[SerializeField]private StringEvent _enterZoneEvent = default;
+
+	[SerializeField] private StringEvent _exitZoneEvent = default;
+
 	[SerializeField] private LayerMask _layers = default;
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if ((1 << other.gameObject.layer & _layers) != 0)
 		{
-			_enterZone.RaiseEvent();
+			_enterZoneEvent.Invoke(other.gameObject.name);
 		}
 	}
 
@@ -20,7 +29,7 @@ public class ZoneTriggerController : MonoBehaviour
 	{
 		if ((1 << other.gameObject.layer & _layers) != 0)
 		{
-			_exitZone.RaiseEvent();
+			_exitZoneEvent.Invoke(other.gameObject.name);
 		}
 	}
 }
